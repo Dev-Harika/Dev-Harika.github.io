@@ -204,6 +204,20 @@ section { padding:72px 0; }
 .highlight-card p { color:var(--text-muted);font-size:0.92rem;line-height:1.7; }
 .highlight-metric { display:inline-block;background:rgba(5,150,105,0.1);color:var(--primary);padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:700;margin-top:12px; }
 
+
+/* ── About Story ── */
+.about-story { display:grid;grid-template-columns:1fr 280px;gap:60px;align-items:start; }
+.about-story-text .about-opener { font-size:1.15rem;font-weight:500;color:var(--text);line-height:1.8;margin-bottom:20px; }
+.about-story-text p { color:var(--text-muted);font-size:0.97rem;line-height:1.9;margin-bottom:16px; }
+.about-story-text .about-close { font-size:0.97rem;color:var(--primary);font-weight:500;font-style:italic;border-left:3px solid var(--primary);padding-left:16px;margin-top:8px;line-height:1.8; }
+.sidebar-card { background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:18px; }
+.sidebar-item { display:flex;align-items:flex-start;gap:14px; }
+.sidebar-item i { color:var(--primary);font-size:1rem;margin-top:3px;flex-shrink:0;width:16px; }
+.sidebar-item div { display:flex;flex-direction:column;gap:2px; }
+.sidebar-item strong { font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted); }
+.sidebar-item span { font-size:0.9rem;font-weight:500;color:var(--text); }
+@media (max-width:900px) { .about-story { grid-template-columns:1fr; } }
+
 /* ── About ── */
 .about-grid { display:grid;grid-template-columns:280px 1fr;gap:56px;align-items:start; }
 .about-avatar-col { display:flex;flex-direction:column;align-items:center;gap:24px; }
