@@ -206,7 +206,7 @@ section { padding:72px 0; }
 
 
 /* ── About Story ── */
-.about-story { display:grid;grid-template-columns:1fr 200px;gap:48px;align-items:start; }
+.about-story { display:grid;grid-template-columns:1fr 160px;gap:40px;align-items:start; }
 .about-story-text .about-opener { font-size:1.15rem;font-weight:500;color:var(--text);line-height:1.8;margin-bottom:20px; }
 .about-story-text p { color:var(--text-muted);font-size:0.97rem;line-height:1.9;margin-bottom:16px; }
 .about-story-text .about-close { font-size:0.97rem;color:var(--primary);font-weight:500;font-style:italic;border-left:3px solid var(--primary);padding-left:16px;margin-top:8px;line-height:1.8; }
