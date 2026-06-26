@@ -163,18 +163,18 @@ nav {
     animation: photoIn 0.8s 0.4s ease forwards;
 }
 @keyframes photoIn { to { opacity:1;transform:translateX(0); } }
-.hero-photo-wrapper { position:relative;width:360px;height:420px; }
+.hero-photo-wrapper { position:relative;width:420px;height:500px;border-radius:24px;overflow:hidden; }
 .hero-photo-wrapper img {
     width:100%;height:100%;
-    object-fit:cover;object-position:center top;
-    border-radius:24px;
-    box-shadow:0 24px 60px rgba(5,150,105,0.2), 0 8px 24px rgba(0,0,0,0.1);
+    object-fit:cover;object-position:center 10%;
+    transform:scale(1.12);
     position:relative;z-index:1;
 }
 .hero-photo-bg {
     position:absolute;inset:-12px;
     background:linear-gradient(135deg,var(--primary),var(--secondary));
     border-radius:30px;opacity:0.15;z-index:0;
+    box-shadow:0 24px 60px rgba(5,150,105,0.2), 0 8px 24px rgba(0,0,0,0.1);
 }
 .hero-photo-badge {
     position:absolute;bottom:-16px;right:-16px;z-index:2;
@@ -337,7 +337,7 @@ footer { text-align:center;padding:36px 0;color:var(--text-muted);font-size:0.88
     .cta-group { justify-content:center; }
     .social-links { justify-content:center; }
     .hero-photo-col { order:-1; }
-    .hero-photo-wrapper { width:240px;height:280px; }
+    .hero-photo-wrapper { width:280px;height:330px; }
     .about-grid { grid-template-columns:1fr; }
     .about-avatar-col { align-items:center; }
 }
