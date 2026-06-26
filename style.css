@@ -28,14 +28,9 @@ body {
 @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 /* ── Background ── */
-.bg-animation {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-    background:
-        radial-gradient(ellipse at 15% 20%, rgba(16,185,129,0.12) 0%, transparent 50%),
-        radial-gradient(ellipse at 85% 80%, rgba(13,148,136,0.09) 0%, transparent 50%);
-}
+.bg-animation { display: none; }
 
-.blob { position: fixed; border-radius: 50%; filter: blur(90px); pointer-events: none; z-index: -1; opacity: 0; }
+.blob { display: none; }
 .blob-1 { width:700px;height:700px; background:radial-gradient(circle,rgba(5,150,105,0.16),transparent 70%); top:-250px;left:-200px; animation:blobFloat1 14s ease-in-out infinite,blobIn 1.5s 0.2s ease forwards; }
 .blob-2 { width:550px;height:550px; background:radial-gradient(circle,rgba(13,148,136,0.12),transparent 70%); bottom:-150px;right:-150px; animation:blobFloat2 18s ease-in-out infinite,blobIn 1.5s 0.5s ease forwards; }
 .blob-3 { width:400px;height:400px; background:radial-gradient(circle,rgba(16,185,129,0.08),transparent 70%); top:45%;left:55%; animation:blobFloat3 12s ease-in-out infinite,blobIn 1.5s 0.8s ease forwards; }
