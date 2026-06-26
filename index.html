@@ -1230,10 +1230,81 @@
             background: rgba(16,185,129,0.3);
             color: var(--text);
         }
+
+        /* Animated background blobs */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+        }
+        .blob-1 {
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(5,150,105,0.18), transparent 70%);
+            top: -250px; left: -200px;
+            animation: blobFloat1 14s ease-in-out infinite, blobFadeIn 1.5s 0.2s ease forwards;
+        }
+        .blob-2 {
+            width: 550px; height: 550px;
+            background: radial-gradient(circle, rgba(13,148,136,0.14), transparent 70%);
+            bottom: -150px; right: -150px;
+            animation: blobFloat2 18s ease-in-out infinite, blobFadeIn 1.5s 0.5s ease forwards;
+        }
+        .blob-3 {
+            width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(16,185,129,0.1), transparent 70%);
+            top: 40%; left: 55%;
+            animation: blobFloat3 12s ease-in-out infinite, blobFadeIn 1.5s 0.8s ease forwards;
+        }
+        @keyframes blobFadeIn { to { opacity: 1; } }
+        @keyframes blobFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33%       { transform: translate(80px, 70px) scale(1.05); }
+            66%       { transform: translate(-50px, 100px) scale(0.95); }
+        }
+        @keyframes blobFloat2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33%       { transform: translate(-70px, -90px) scale(1.08); }
+            66%       { transform: translate(50px, -50px) scale(0.96); }
+        }
+        @keyframes blobFloat3 {
+            0%, 100% { transform: translate(0, 0); }
+            50%       { transform: translate(-60px, -80px); }
+        }
+
+        /* Hero entrance — staggered fade-up */
+        .hero-content > * {
+            opacity: 0;
+            transform: translateY(24px);
+            animation: heroUp 0.7s ease forwards;
+        }
+        .hero-content > *:nth-child(1) { animation-delay: 0.10s; }
+        .hero-content > *:nth-child(2) { animation-delay: 0.22s; }
+        .hero-content > *:nth-child(3) { animation-delay: 0.34s; }
+        .hero-content > *:nth-child(4) { animation-delay: 0.46s; }
+        .hero-content > *:nth-child(5) { animation-delay: 0.58s; }
+        .hero-content > *:nth-child(6) { animation-delay: 0.70s; }
+        .hero-content > *:nth-child(7) { animation-delay: 0.82s; }
+        .hero-content > *:nth-child(8) { animation-delay: 0.94s; }
+        @keyframes heroUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+        .reveal.revealed { opacity: 1; transform: translateY(0); }
+
     </style>
 </head>
 <body>
     <div class="bg-animation"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
 
     <!-- Navigation -->
     <nav>
@@ -1277,23 +1348,23 @@
             <!-- Stats -->
             <div class="stats-row">
                 <div class="stat-item">
-                    <div class="stat-number">6+</div>
+                    <div class="stat-number" data-target="6" data-suffix="+">6+</div>
                     <div class="stat-label">Years Experience</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">20+</div>
+                    <div class="stat-number" data-target="20" data-suffix="+">20+</div>
                     <div class="stat-label">LLMs Deployed</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">38</div>
+                    <div class="stat-number" data-target="38" data-suffix="">38</div>
                     <div class="stat-label">Apps Migrated</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">50%</div>
+                    <div class="stat-number" data-target="50" data-suffix="%">50%</div>
                     <div class="stat-label">Deploy Time Cut</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">4</div>
+                    <div class="stat-number" data-target="4" data-suffix="">4</div>
                     <div class="stat-label">Merged OSS PRs</div>
                 </div>
             </div>
@@ -1984,19 +2055,56 @@
             scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
         });
 
-        // Animate stats on scroll into view
-        const statNumbers = document.querySelectorAll('.stat-number');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'none';
-                    entry.target.offsetHeight;
-                    entry.target.style.animation = 'fadeUp 0.6s ease forwards';
+        // Scroll reveal
+        const revealTargets = [
+            '.highlight-card', '.tech-category', '.timeline-item',
+            '.project-card', '.cert-card', '.edu-card',
+            '.about-bio-col', '.about-quick-facts',
+            '.opensource-card', '.section-header', '.contact-section'
+        ].join(', ');
+
+        document.querySelectorAll(revealTargets).forEach((el, i) => {
+            el.classList.add('reveal');
+            const siblings = [...el.parentElement.children].filter(s => s.tagName === el.tagName && s.classList.contains(el.classList[0]));
+            const idx = siblings.indexOf(el);
+            el.style.transitionDelay = (idx * 0.09) + 's';
+        });
+
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('revealed'); revealObs.unobserve(e.target); }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+        // Animated stat counters
+        function animateCounter(el) {
+            const target = parseInt(el.dataset.target);
+            const suffix = (el.dataset.suffix || '').trim();
+            let start = null;
+            const duration = 1400;
+            function step(ts) {
+                if (!start) start = ts;
+                const p = Math.min((ts - start) / duration, 1);
+                const ease = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.floor(ease * target) + suffix;
+                if (p < 1) requestAnimationFrame(step);
+                else el.textContent = target + suffix;
+            }
+            requestAnimationFrame(step);
+        }
+
+        const counterObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting && e.target.dataset.target) {
+                    animateCounter(e.target);
+                    counterObs.unobserve(e.target);
                 }
             });
         }, { threshold: 0.5 });
 
-        statNumbers.forEach(el => observer.observe(el));
+        document.querySelectorAll('.stat-number[data-target]').forEach(el => counterObs.observe(el));
     </script>
 </body>
 </html>
